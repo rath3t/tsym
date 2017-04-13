@@ -1032,3 +1032,18 @@ TEST(Matrix, printerOperator)
 
     CHECK_EQUAL(expect, stream.str());
 }
+
+
+TEST(Matrix, determinantIssueSwappingPLU)
+{
+    const Var expected(0*d - b*c);
+    Matrix A(2, 2);
+
+    A(0, 0) = 0;
+    A(0, 1) = b;
+    A(1, 0) = c;
+    A(1, 1) = d;
+
+    CHECK_EQUAL(expected, A.det());
+}
+
