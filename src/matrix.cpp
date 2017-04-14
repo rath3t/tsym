@@ -352,6 +352,22 @@ unsigned tsym::Matrix::compPartialPivots(Vector *b)
 
                 break;
             }
+        }
+        if(highestcompl > data[j][j].getBasePtr()->complexity()){
+            swapRows(highestcomplpos, j);
+            if (b != nullptr)
+                std::swap(b->data[j], b->data[highestcomplpos]);
+        }
+        if(data[j][j].isZero()){
+            for (size_t i = j + 1; i < nRow; ++i){
+                if (!data[i][j].isZero()){
+                    swapRows(i, j);
+                    if (b != nullptr)
+                        std::swap(b->data[j], b->data[i]);
+                    break;
+                }
+            }
+        }
     }
 
     return swapCount;
